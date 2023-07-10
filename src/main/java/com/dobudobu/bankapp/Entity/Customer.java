@@ -1,5 +1,6 @@
 package com.dobudobu.bankapp.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,7 @@ public class Customer {
     private String lastName;
 
     @Column(name = "tanggal_lahir")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate tanggalLahir;
 
     @Column(name = "alamat")
@@ -40,4 +42,9 @@ public class Customer {
 
     @Column(name = "email", unique = true)
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Account account;
+
+    private boolean deleted = Boolean.FALSE;
 }
